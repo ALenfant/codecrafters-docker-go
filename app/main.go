@@ -18,6 +18,10 @@ func main() {
 	err := cmd.Run()
 	if err != nil {
 		fmt.Printf("Err: %v", err)
-		os.Exit(1)
+		if ee, ok := err.(*exec.ExitError); ok {
+			os.Exit(ee.ExitCode())
+		} else {
+			os.Exit(1)
+		}
 	}
 }
